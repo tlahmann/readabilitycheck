@@ -4,6 +4,9 @@
     "description": "Check text for readability",
     "version": "1.4.0",
     "publisher": "jemcclin",
+    "contributors": [
+        "Tobias Lahmann <tobiaslahmann@gmail.com> (https://github.com/tlahmann/)"
+    ],
     "engines": {
         "vscode": "^1.40.0"
     },
