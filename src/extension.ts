@@ -7,8 +7,6 @@ import {
     commands,
     Disposable,
     ExtensionContext,
-    StatusBarAlignment,
-    StatusBarItem,
 } from 'vscode';
 import {
     automatedReadability,
@@ -37,28 +35,15 @@ export function activate(context: ExtensionContext) {
     });
 
     // Add to a list of disposables which are disposed when this extension is deactivated.
-    context.subscriptions.push(readabilityCheck);
     context.subscriptions.push(controller);
     context.subscriptions.push(disposable);
 }
 
 class ReadabilityCheck {
 
-    private _statusBarItem: StatusBarItem;
-
     public updateReadability() {
-
-        // Create as needed
-        if (!this._statusBarItem) {
-            this._statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
-        }
-
         // Get the current text editor
         let editor = window.activeTextEditor;
-        if (!editor) {
-            this._statusBarItem.hide();
-            return;
-        }
 
         let doc = editor.document;
 
@@ -104,17 +89,9 @@ class ReadabilityCheck {
                     break;
             }
 
-            // window.showInformationMessage(`${ formula } score: ${ readability }`);
-            // Update the status bar
-            this._statusBarItem.text = `${ formula } score: ${ readability }`;
-            this._statusBarItem.show();
-        } else {
-            this._statusBarItem.hide();
+            // Show info message
+            window.showInformationMessage(`${ formula } score: ${ readability }`);
         }
-    }
-
-    dispose() {
-        this._statusBarItem.dispose();
     }
 }
 
